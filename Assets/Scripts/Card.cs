@@ -5,11 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Card : MonoBehaviour
 {
-    [SerializeField] int value;
-    [SerializeField] Suit suit;
+    [SerializeField] public int value;
+    [SerializeField] public Suit suit;
+    [SerializeField] public bool flipped;
     [SerializeField] Sprite cardFront;
     [SerializeField] Sprite cardBack;
-    [SerializeField] bool flipped;
     SpriteRenderer spriteRenderer;
 
 	private void Start()

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 8
-  suit: 0
+  suit: 3
+  flipped: 0
   cardFront: {fileID: 21300000, guid: 2f72cea4797c06847bc801a2967cacdc, type: 3}
   cardBack: {fileID: 21300000, guid: 738fbeb5a0a487e45b93b4d112abd016, type: 3}
-  flipped: 0
