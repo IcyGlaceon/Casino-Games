@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class DeckOfCards : MonoBehaviour
 {
-    [SerializeField] public Card[] cards;
-    [SerializeField] public Card[] discard;
+    [SerializeField] public Card[] cards = new Card[0];
+    [SerializeField] public Card[] discard = new Card[0];
 
 	/// <summary>
 	/// Randomize the order of the cards in the main deck.
@@ -28,7 +28,6 @@ public class DeckOfCards : MonoBehaviour
 		{
 			deck += card.value + " " + card.suit + "\n";
 		}
-		Debug.Log(deck);
 	}
 
 	/// <summary>
