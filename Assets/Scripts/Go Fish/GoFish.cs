@@ -13,12 +13,9 @@ public class GoFish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //deck.Shuffle();
+        deck.Shuffle();
 
-        for (int i = 0; i < 7; i++)
-        {
-            player1.Add(deck.Draw());
-        }
+        Debug.Log(deck.cards.Length);
 
         
     }
@@ -31,6 +28,14 @@ public class GoFish : MonoBehaviour
 
     private void OnMouseDown()
     {
+        deck.Draw();
+
+        //Debug.Log(card);
+
+        /*for (int i = 0; i < 7; i++)
+        {
+            player1.Add(deck.Draw());
+        }*/
         //Debug.Log(player1.Count());
     }
 }

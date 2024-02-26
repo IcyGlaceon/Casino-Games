@@ -78,7 +78,6 @@ public class DeckOfCards : MonoBehaviour
 		Card[] drawn = new Card[0];
 		for (int i = 0; i < NumberOfCards; i++)
 		{
-			Debug.Log(cards[i]);
 			drawn.Append(cards[i]);
 		}
 
