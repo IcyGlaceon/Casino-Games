@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6ba29786b9f7ce9419406c2c9201c3af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 738fbeb5a0a487e45b93b4d112abd016, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 7
   suit: 2
-  flipped: 1
+  flipped: 0
   cardFront: {fileID: 21300000, guid: 6ba29786b9f7ce9419406c2c9201c3af, type: 3}
   cardBack: {fileID: 21300000, guid: 738fbeb5a0a487e45b93b4d112abd016, type: 3}
   spriteRenderer: {fileID: 3874513274903984541}

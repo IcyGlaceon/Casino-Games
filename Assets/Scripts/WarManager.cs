@@ -51,8 +51,6 @@ public class WarManager : MonoBehaviour
 	// show the cards face up that each player played
 	private void DisplayRound()
 	{
-		Player1Cards[0].Flip();
-		Player2Cards[0].Flip();
 		Player1.sprite = Player1Cards[0].cardFront;
 		Player2.sprite = Player2Cards[0].cardFront;
 		Player1.enabled = true;
