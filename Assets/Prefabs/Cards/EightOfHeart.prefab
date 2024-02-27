@@ -102,3 +102,4 @@ MonoBehaviour:
   flipped: 0
   cardFront: {fileID: 21300000, guid: 58fc2ad512016144d8d44a08ace8c994, type: 3}
   cardBack: {fileID: 21300000, guid: 738fbeb5a0a487e45b93b4d112abd016, type: 3}
+  spriteRenderer: {fileID: 1741683973218940726}
