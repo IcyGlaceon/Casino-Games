@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class GOPSPlayer : MonoBehaviour
 {
-    [SerializeField] List<GameObject> cards = new List<GameObject>();
+    [SerializeField] List<GameObject> hand = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
+    GameObject selectedCard;
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void cardSelected()
     {
-        
+
+    }
+
+    void cardPlayed()
+    {
+
     }
 }
