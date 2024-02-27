@@ -33,7 +33,7 @@ public class WarManager : MonoBehaviour
 
 	private void FillPlayerHands()
 	{
-		int length = (PlayableCards.cards.Length / 2);
+		int length = (PlayableCards.cards.Count / 2);
 		for (int i = 0; i < length; i++) 
 		{
 			Player1Cards.Add(PlayableCards.Draw());
