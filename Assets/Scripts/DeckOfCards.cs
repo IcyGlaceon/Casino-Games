@@ -7,7 +7,7 @@ using UnityEngine;
 public class DeckOfCards : MonoBehaviour
 {
     [SerializeField] public Card[] cards = new Card[0];
-    [SerializeField] public Card[] discard = new Card[0];
+	[SerializeField] public Card[] discard = new Card[0];
 
 	/// <summary>
 	/// Randomize the order of the cards in the main deck.
