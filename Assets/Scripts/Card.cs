@@ -8,9 +8,9 @@ public class Card : MonoBehaviour
     [SerializeField] public int value;
     [SerializeField] public Suit suit;
     [SerializeField] public bool flipped;
-    [SerializeField] Sprite cardFront;
-    [SerializeField] Sprite cardBack;
-    SpriteRenderer spriteRenderer;
+    [SerializeField] public Sprite cardFront;
+    [SerializeField] public Sprite cardBack;
+    public SpriteRenderer spriteRenderer;
 
 	private void Start()
 	{
