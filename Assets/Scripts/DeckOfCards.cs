@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class DeckOfCards : MonoBehaviour
 {
-    [SerializeField] public Card[] cards = new Card[0];
-    [SerializeField] public Card[] discard = new Card[0];
+    [SerializeField] public List<Card> cards = new List<Card>();
+    [SerializeField] public List<Card> discard = new List<Card>();
 
 	/// <summary>
 	/// Randomize the order of the cards in the main deck.
@@ -15,7 +15,7 @@ public class DeckOfCards : MonoBehaviour
     public void Shuffle()
     {
 		System.Random rand = new System.Random();
-		for (int i = cards.Length - 1; i > 0; i--)
+		for (int i = cards.Count - 1; i > 0; i--)
 		{
 			int j = rand.Next(0, i + 1);
 			Card temp = cards[i];
@@ -40,7 +40,7 @@ public class DeckOfCards : MonoBehaviour
 		{ 
 			cards.Append(card);
 		}
-		discard = new Card[0];
+		discard.Clear();
 		if (shuffled)
 		{ 
 			Shuffle();
@@ -53,18 +53,18 @@ public class DeckOfCards : MonoBehaviour
 	/// <param name="card">The card that you want to discard.</param>
 	public void Discard(Card card)
 	{ 
-		discard.Append(card);
+		discard.Add(card);
 	}
 
 	/// <summary>
 	/// Place any number of cards into the discard pile.
 	/// </summary>
 	/// <param name="discards">The cards that you want to discard.</param>
-	public void Discard(Card[] discards)
+	public void Discard(List<Card> discards)
 	{
 		foreach (Card card in discards)
 		{ 
-			discard.Append(card);
+			discard.Add(card);
 		}
 	}
 
@@ -73,19 +73,14 @@ public class DeckOfCards : MonoBehaviour
 	/// </summary>
 	/// <param name="NumberOfCards">How many cards you want to draw from the top of the deck.</param>
 	/// <returns>The cards that you have drawn</returns>
-	public Card[] Draw(int NumberOfCards)
+	public List<Card> Draw(int NumberOfCards)
 	{
-		Card[] drawn = new Card[0];
+		List<Card> drawn = new List<Card>();
 		for (int i = 0; i < NumberOfCards; i++)
 		{
-			drawn.Append(cards[i]);
+			drawn.Add(cards[i]);
+			cards.RemoveAt(i);
 		}
-
-		foreach (Card card in drawn)
-		{
-			cards = cards.Where(item => !item.Equals(card)).ToArray();
-		}
-
 		return drawn;
 	}
 
@@ -95,8 +90,8 @@ public class DeckOfCards : MonoBehaviour
 	/// <returns>The drawn card.</returns>
 	public Card Draw()
 	{
-		Card drawn = cards[0];
-		cards = cards.Where(item => !item.Equals(cards[0])).ToArray();
+		Card drawn = cards.First();
+		cards.Remove(drawn);
 		return drawn;
 	}
 }

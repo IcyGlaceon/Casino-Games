@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 0
   suit: 4
-  cardFront: {fileID: 21300000, guid: 944950274af77b54ea70b045e57477df, type: 3}
-  cardBack: {fileID: 0}
   flipped: 0
+  cardFront: {fileID: 21300000, guid: 944950274af77b54ea70b045e57477df, type: 3}
+  cardBack: {fileID: 21300000, guid: 738fbeb5a0a487e45b93b4d112abd016, type: 3}
+  spriteRenderer: {fileID: 6190130706101937129}
