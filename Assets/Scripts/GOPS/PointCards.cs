@@ -11,10 +11,9 @@ public class PointCards : MonoBehaviour
     GameObject currentPointCard;
     GameObject nextPointCard;
 
-    // Start is called before the first frame update
     void Start()
     {
-        currentPointCard = cards[Random.Range(0, (cards.Count - 1))];
+        
 
     }
 

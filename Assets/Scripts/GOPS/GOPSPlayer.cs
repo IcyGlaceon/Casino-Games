@@ -6,20 +6,13 @@ public class GOPSPlayer : MonoBehaviour
 {
     [SerializeField] List<GameObject> hand = new List<GameObject>();
 
-    GameObject selectedCard;
+    [HideInInspector] public int CardsInHand = 13;
+
+    
 
     void Update()
     {
         
     }
 
-    void cardSelected()
-    {
-
-    }
-
-    void cardPlayed()
-    {
-
-    }
 }
