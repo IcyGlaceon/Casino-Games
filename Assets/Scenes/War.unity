@@ -1451,8 +1451,8 @@ MonoBehaviour:
   PlayedStackText1: {fileID: 645999568}
   PlayedStackText2: {fileID: 912320049}
   WarUI: {fileID: 1134678275}
-  Player1Win: {fileID: 0}
-  Player2Win: {fileID: 0}
+  Player1Win: {fileID: 696793747}
+  Player2Win: {fileID: 1637807572}
 --- !u!4 &982411783
 Transform:
   m_ObjectHideFlags: 0
