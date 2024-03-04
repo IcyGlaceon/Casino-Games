@@ -19,4 +19,9 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("SlapJack");
     }
+
+    public void GoToGOPS()
+    {
+        SceneManager.LoadScene("GOPS");
+    }
 }
