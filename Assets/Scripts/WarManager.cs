@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WarManager : MonoBehaviour
 {
@@ -12,6 +14,12 @@ public class WarManager : MonoBehaviour
 	[SerializeField] TMP_Text Player2Text;
 	[SerializeField] SpriteRenderer Player1;
 	[SerializeField] SpriteRenderer Player2;
+	[SerializeField] TMP_Text PlayedStackText1;
+	[SerializeField] TMP_Text PlayedStackText2;
+	[SerializeField] TMP_Text WarUI;
+	[SerializeField] TMP_Text Player1Win;
+	[SerializeField] TMP_Text Player2Win;
+	[SerializeField] GameObject Tutorial;
     List<Card> Player1Cards = new List<Card>();
     List<Card> Player2Cards = new List<Card>();
 	private bool CardsOut = false;
@@ -24,6 +32,12 @@ public class WarManager : MonoBehaviour
 		FillPlayerHands();
 		Player1.enabled = false;
 		Player2.enabled = false;
+		PlayedStackText1.enabled = false;
+		PlayedStackText2.enabled = false;
+		WarUI.enabled = false;
+		Player1Win.enabled = false;
+		Player2Win.enabled = false;
+		Tutorial.SetActive(false);
 	}
 
 	public void Update()
@@ -95,7 +109,6 @@ public class WarManager : MonoBehaviour
 				Player2Cards.Add(card);
 			}
 		}
-		// do the war thing lol
 		Round.Clear();
 	}
 
@@ -104,18 +117,68 @@ public class WarManager : MonoBehaviour
 	{
 		if (CardsOut)
 		{
-			Player1.enabled = false;
-			Player2.enabled = false;
-			GiveCardsToWinner(Round);
-			CardsOut = false;
+			if (Winner != RoundWinner.WAR)
+			{
+				Player1.enabled = false;
+				Player2.enabled = false;
+				PlayedStackText1.enabled = false;
+				PlayedStackText2.enabled = false;
+				GiveCardsToWinner(Round);
+				CardsOut = false;
+			}
+			else
+			{
+				if (WarUI.enabled == true)
+				{
+					WarUI.enabled = false;
+					DisplayRound();
+					RemoveCards();
+					DisplayRound();
+					Winner = DetermineWinner(Player1Cards.First(), Player2Cards.First());
+					RemoveCards();
+					PlayedStackText1.text = (Round.Count() / 2).ToString();
+					PlayedStackText2.text = (Round.Count() / 2).ToString();
+					PlayedStackText1.enabled = true;
+					PlayedStackText2.enabled = true;
+					CardsOut = true;
+				}
+				else 
+				{
+					WarUI.enabled = true;
+				}
+			}
 		}
 		else 
 		{
-			DisplayRound();
-			Winner = DetermineWinner(Player1Cards.First(), Player2Cards.First());
-			RemoveCards();
-			CardsOut = true;
+			if (Player1Cards.Count() > 0 && Player2Cards.Count() > 0)
+			{ 
+				DisplayRound();
+				Winner = DetermineWinner(Player1Cards.First(), Player2Cards.First());
+				RemoveCards();
+				CardsOut = true;
+			}
+			else 
+			{
+				if (Player1Cards.Count() <= 0)
+				{
+					Player2Win.enabled = true;
+				}
+				else 
+				{
+					Player1Win.enabled = true;
+				}
+			}
 		}
+	}
+
+	public void ShowTutorial()
+	{ 
+		Tutorial.SetActive(true);
+	}
+
+	public void HideTutorial()
+	{
+		Tutorial.SetActive(false);
 	}
 }
 
