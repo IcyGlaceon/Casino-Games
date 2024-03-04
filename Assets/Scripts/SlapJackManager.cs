@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class SlapJackManager : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] TMP_Text winLose_Txt;
-    [SerializeField] DeckOfCards deck;
-    [SerializeField] List<Card> playerHand;
-    [SerializeField] List<Card> enemyHand;
     [SerializeField] SpriteRenderer centerCard;
-    [SerializeField] float AITurnTime;
     [SerializeField] TMP_Text PlayerCardsLeft;
     [SerializeField] TMP_Text EnemyCardsLeft;
+    [SerializeField] float AITurnTime;
+    [SerializeField] GameObject PlayerDeckButton;
+    [SerializeField] GameObject RestartButton;
+    [Header("Functionality")]
+    [SerializeField] DeckOfCards deck;
 
+    List<Card> playerHand = new List<Card>();
+    List<Card> enemyHand = new List<Card>();
+    List<Card> cardsInCenter = new List<Card>();
     bool playerTurn = true;
     float timer;
-    List<Card> cardsInCenter = new List<Card>();
     float textTimer;
 
     void Start()
@@ -37,11 +40,17 @@ public class SlapJackManager : MonoBehaviour
         {
             winLose_Txt.text = "You Win!";
             winLose_Txt.gameObject.SetActive(true);
+            playerTurn = true;
+            PlayerDeckButton.SetActive(false);
+            RestartButton.SetActive(true);
         }
         if (enemyHand.Count == 0)
         {
             winLose_Txt.text = "You Lose!";
             winLose_Txt.gameObject.SetActive(true);
+            playerTurn= true;
+            PlayerDeckButton.SetActive(false);
+            RestartButton.SetActive(true);
         }
         if (winLose_Txt.text.Contains("Jack"))
         {
@@ -100,6 +109,7 @@ public class SlapJackManager : MonoBehaviour
 
     IEnumerator AI_Slap()
     {
+        if (playerHand.Count == 0 || enemyHand.Count == 0) yield break;
         int chance = Random.Range(1, 16);
 
         if(chance == 1)
