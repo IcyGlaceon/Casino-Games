@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GOPSAI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] List<GameObject> hand = new List<GameObject>();
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] public GameObject AICardUI;
+
+    [HideInInspector] public GameObject Card;
+    [HideInInspector] public int CardValue;
+    [HideInInspector] public int Points = 0;
+
+    public void SelectCard()
     {
+        CardValue = Random.Range(0, hand.Count);
+
+        Card = hand[CardValue];
+
+        AICardUI.GetComponent<Image>().sprite = Card.GetComponent<Image>().sprite;
         
+        hand.Remove(Card);
+
+        Card.SetActive(false);
     }
 }

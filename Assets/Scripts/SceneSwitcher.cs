@@ -20,6 +20,10 @@ public class SceneSwitcher : MonoBehaviour
         SceneManager.LoadScene("SlapJack");
     }
 
+    public void GoToGOPS()
+    {
+        SceneManager.LoadScene("GOPS");
+    }
     public void GoToBlackJack()
     {
         SceneManager.LoadScene("BlackJack");
