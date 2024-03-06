@@ -14,4 +14,9 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("War");
     }
+
+    public void GoToSlapJack()
+    {
+        SceneManager.LoadScene("SlapJack");
+    }
 }

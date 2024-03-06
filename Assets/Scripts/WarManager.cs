@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WarManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class WarManager : MonoBehaviour
 	[SerializeField] TMP_Text WarUI;
 	[SerializeField] TMP_Text Player1Win;
 	[SerializeField] TMP_Text Player2Win;
+	[SerializeField] GameObject Tutorial;
     List<Card> Player1Cards = new List<Card>();
     List<Card> Player2Cards = new List<Card>();
 	private bool CardsOut = false;
@@ -35,6 +37,7 @@ public class WarManager : MonoBehaviour
 		WarUI.enabled = false;
 		Player1Win.enabled = false;
 		Player2Win.enabled = false;
+		Tutorial.SetActive(false);
 	}
 
 	public void Update()
@@ -166,6 +169,16 @@ public class WarManager : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public void ShowTutorial()
+	{ 
+		Tutorial.SetActive(true);
+	}
+
+	public void HideTutorial()
+	{
+		Tutorial.SetActive(false);
 	}
 }
 
