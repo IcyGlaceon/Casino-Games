@@ -4,19 +4,23 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class BlackJackManager : MonoBehaviour
 {
     [SerializeField] DeckOfCards deck;
     [SerializeField] TMP_Text winText;
-    [SerializeField] TMP_Text dealerText;
-    [SerializeField] TMP_Text playerText;
     [SerializeField] GameObject playerPos;
     [SerializeField] GameObject dealerPos;
     [SerializeField] List<SpriteRenderer> playerSprites;
     [SerializeField] List<SpriteRenderer> dealerSprites;
+    [SerializeField] Button hitButton;
+    [SerializeField] Button stayButton;
+    [SerializeField] GameObject tutorial;
     List<Card> playerCards = new List<Card>();
     List<Card> dealerCards = new List<Card>();
+
+    Card dealerFaceDown = null;
 
     int playerScore = 0;
     int dealerScore = 0;
@@ -30,31 +34,35 @@ public class BlackJackManager : MonoBehaviour
         StartGame();
     }
 
-
-    void Update()
-    {
-
-    }
-
     //Resets scores, clears current hands, and reshuffles cards back into the deck
     public void StartGame()
     {
+        winText.text = "";
         playerScore = 0;
         dealerScore = 0;
         foreach (Card card in playerCards)
         {
             deck.discard.Add(card);
-            //deck.Discard(card);
-            //deck.discard.Append(card);
         }
+        foreach (SpriteRenderer spriteRenderer in playerSprites)
+        {
+            spriteRenderer.sprite = null;
+        }
+        playerCurrent = 0;
         playerCards.Clear();
         foreach (Card card in dealerCards)
         {
             deck.discard.Add(card);
-            //deck.Discard(card);
         }
+        foreach (SpriteRenderer spriteRenderer in dealerSprites)
+        {
+            spriteRenderer.sprite = null;
+        }
+        dealerCurrent = 0;
         dealerCards.Clear();
         deck.ReturnToDeck(true);
+        hitButton.enabled = true;
+        stayButton.enabled = true;
         StartDeal();
     }
 
@@ -67,43 +75,24 @@ public class BlackJackManager : MonoBehaviour
     public void DealPlayer()
     {
         Card card = deck.Draw();
-
         playerCards.Add(card);
-        if (card.value > 10)
-        {
-            playerScore += 10;
-        }
-        else playerScore += card.value;
-
-        playerText.text = playerScore.ToString();
-        playerPos.transform.position.x.Equals(playerPos.transform.position.x + 10);
-        CheckScore(playerCards);
-
+        PlaceCardPlayer(card);
+        playerScore = CheckScore(playerCards);
     }
 
     //Deals dealer a card then adds value to score and checks for blackjack or bust
-    void DealDealer()
+    void DealDealer(bool flipped = true)
     {
         Card card = deck.Draw();
-
         dealerCards.Add(card);
-        if (card.value > 10)
-        {
-            dealerScore += 10;
-        }
-        else dealerScore += card.value;
-
-        dealerText.text = dealerScore.ToString();
-
-        PlaceCard(dealerPos, card, true);
-        dealerPos.transform.position.x.Equals(dealerPos.transform.position.x + 10);
-        CheckScore(dealerCards);
+        PlaceCardDealer(card, flipped);
+        dealerScore = CheckScore(dealerCards);
     }
 
     //First hands dealt when game starts
     void StartDeal()
     {
-        DealDealer();
+        DealDealer(false);
         DealDealer();
         DealPlayer();
         DealPlayer();
@@ -111,6 +100,7 @@ public class BlackJackManager : MonoBehaviour
 
     void DealerTurn()
     {
+        
         while (dealerScore <= 16)
         {
             DealDealer();
@@ -119,10 +109,11 @@ public class BlackJackManager : MonoBehaviour
         CheckWin();
     }
 
-    void CheckScore(List<Card> cards)
+    int CheckScore(List<Card> cards)
     {
         //cards.Sort();
         List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
+        sortedCards.Reverse();
         int score = 0;
         foreach (Card card in sortedCards)
         {
@@ -145,11 +136,13 @@ public class BlackJackManager : MonoBehaviour
 
         if (score >= 21) CheckWin();
 
+        return score;
     }
 
     //Checks who won the game
     void CheckWin()
     {
+        dealerSprites[0].sprite = dealerFaceDown.cardFront;
         if (playerScore > dealerScore && playerScore <= 21 || dealerScore > 21)
         {
             winText.text = "Player Wins!";
@@ -162,27 +155,35 @@ public class BlackJackManager : MonoBehaviour
         {
             winText.text = "Dealer Wins!";
         }
+        hitButton.enabled = false;
+        stayButton.enabled = false;
     }
 
-    void PlaceCard(GameObject cardPos, Card card, bool flipped = true)
+    void PlaceCardDealer(Card card, bool flipped = true)
     {
-        Card displayCard = card;
-        if (flipped)
-        {
-            //displayCard.spriteRenderer.sprite = displayCard.cardFront;
-            displayCard.Flip();
-        }
+        if (flipped) dealerSprites[dealerCurrent].sprite = card.cardFront;
         else
         {
-            displayCard.spriteRenderer.sprite = card.cardBack;
+            dealerSprites[dealerCurrent].sprite = card.cardBack;
+            dealerFaceDown = card;
         }
-        displayCard.spriteRenderer.transform.position = cardPos.transform.position;
-        Instantiate(displayCard);
-        //card.spriteRenderer.sprite = card.cardBack;
+
+        dealerCurrent++;
     }
 
-    //void PlaceCard(List<SpriteRenderer> renderers, Card card, bool flipped = true)
-    //{
-    //    renderers()
-    //}
+    void PlaceCardPlayer(Card card, bool flipped = true)
+    {
+        if (flipped) playerSprites[playerCurrent].sprite = card.cardFront;
+
+        playerCurrent++;
+    }
+
+    public void HowToPlay()
+    {
+        tutorial.SetActive(true);
+    }
+    public void BackToGame()
+    {
+        tutorial.SetActive(false);
+    }
 }
