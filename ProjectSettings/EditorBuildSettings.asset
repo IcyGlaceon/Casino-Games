@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GOPS.unity
     guid: bf1b9606c3991c94e8f3b76aee4ac6ae
+  - enabled: 1
+    path: Assets/Scenes/GoFish.unity
+    guid: 9f624a484042cf24da3dd7160f6403f8
   m_configObjects: {}
