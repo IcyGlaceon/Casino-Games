@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/War.unity
     guid: 38db222285edb554a8753e29b8c5fe99
+  - enabled: 1
+    path: Assets/Scenes/BlackJack.unity
+    guid: d54bf31be2e7afa42b3f3626db0d0273
   m_configObjects: {}
