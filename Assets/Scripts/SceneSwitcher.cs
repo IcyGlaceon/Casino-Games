@@ -24,4 +24,8 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("GOPS");
     }
+    public void GoToBlackJack()
+    {
+        SceneManager.LoadScene("BlackJack");
+    }
 }
