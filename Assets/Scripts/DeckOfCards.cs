@@ -38,7 +38,7 @@ public class DeckOfCards : MonoBehaviour
     {
 		foreach (Card card in discard)
 		{ 
-			cards.Append(card);
+			cards.Add(card);
 		}
 		discard.Clear();
 		if (shuffled)

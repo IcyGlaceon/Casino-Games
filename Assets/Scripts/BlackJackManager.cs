@@ -11,11 +11,18 @@ public class BlackJackManager : MonoBehaviour
     [SerializeField] TMP_Text winText;
     [SerializeField] TMP_Text dealerText;
     [SerializeField] TMP_Text playerText;
+    [SerializeField] GameObject playerPos;
+    [SerializeField] GameObject dealerPos;
+    [SerializeField] List<SpriteRenderer> playerSprites;
+    [SerializeField] List<SpriteRenderer> dealerSprites;
     List<Card> playerCards = new List<Card>();
     List<Card> dealerCards = new List<Card>();
 
     int playerScore = 0;
     int dealerScore = 0;
+
+    int dealerCurrent = 0;
+    int playerCurrent = 0;
 
     void Start()
     {
@@ -26,7 +33,7 @@ public class BlackJackManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     //Resets scores, clears current hands, and reshuffles cards back into the deck
@@ -34,15 +41,19 @@ public class BlackJackManager : MonoBehaviour
     {
         playerScore = 0;
         dealerScore = 0;
-        foreach (Card card in playerCards) 
+        foreach (Card card in playerCards)
         {
-            deck.Discard(card);
-            deck.discard.Append(card);
+            deck.discard.Add(card);
+            //deck.Discard(card);
+            //deck.discard.Append(card);
         }
+        playerCards.Clear();
         foreach (Card card in dealerCards)
         {
-            deck.Discard(card);
+            deck.discard.Add(card);
+            //deck.Discard(card);
         }
+        dealerCards.Clear();
         deck.ReturnToDeck(true);
         StartDeal();
     }
@@ -56,7 +67,7 @@ public class BlackJackManager : MonoBehaviour
     public void DealPlayer()
     {
         Card card = deck.Draw();
-        
+
         playerCards.Add(card);
         if (card.value > 10)
         {
@@ -65,8 +76,8 @@ public class BlackJackManager : MonoBehaviour
         else playerScore += card.value;
 
         playerText.text = playerScore.ToString();
-
-        if (playerScore >= 21) CheckWin();
+        playerPos.transform.position.x.Equals(playerPos.transform.position.x + 10);
+        CheckScore(playerCards);
 
     }
 
@@ -84,7 +95,9 @@ public class BlackJackManager : MonoBehaviour
 
         dealerText.text = dealerScore.ToString();
 
-        if (dealerScore >= 21) CheckWin();
+        PlaceCard(dealerPos, card, true);
+        dealerPos.transform.position.x.Equals(dealerPos.transform.position.x + 10);
+        CheckScore(dealerCards);
     }
 
     //First hands dealt when game starts
@@ -106,6 +119,34 @@ public class BlackJackManager : MonoBehaviour
         CheckWin();
     }
 
+    void CheckScore(List<Card> cards)
+    {
+        //cards.Sort();
+        List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
+        int score = 0;
+        foreach (Card card in sortedCards)
+        {
+            if (card.value == 1)
+            {
+                if (score + 11 > 21)
+                {
+                     score += 1;
+                }
+                else score += 11;
+            }
+
+            else if (card.value > 10)
+            {
+                score += 10;
+            }
+
+            else score += card.value;
+        }
+
+        if (score >= 21) CheckWin();
+
+    }
+
     //Checks who won the game
     void CheckWin()
     {
@@ -123,10 +164,25 @@ public class BlackJackManager : MonoBehaviour
         }
     }
 
-    public void DiscardTest()
+    void PlaceCard(GameObject cardPos, Card card, bool flipped = true)
     {
-        Card card = deck.Draw();
-        //deck.Discard(card);
-        deck.discard.Append(card);
+        Card displayCard = card;
+        if (flipped)
+        {
+            //displayCard.spriteRenderer.sprite = displayCard.cardFront;
+            displayCard.Flip();
+        }
+        else
+        {
+            displayCard.spriteRenderer.sprite = card.cardBack;
+        }
+        displayCard.spriteRenderer.transform.position = cardPos.transform.position;
+        Instantiate(displayCard);
+        //card.spriteRenderer.sprite = card.cardBack;
     }
+
+    //void PlaceCard(List<SpriteRenderer> renderers, Card card, bool flipped = true)
+    //{
+    //    renderers()
+    //}
 }
